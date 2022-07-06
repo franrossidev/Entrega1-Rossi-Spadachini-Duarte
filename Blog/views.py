@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .forms import BusquedaLibro, FormLibro
 from .models import Libro
 from datetime import datetime
@@ -27,10 +27,10 @@ def crear_libro(request):
             )
             libro.save()
 
-            listado_libros = Libro.objects.all()
+            #listado_libros = Libro.objects.all()
             
-            return render(request, 'listado_libros.html', {'listado_libros': listado_libros})
-            #redirect
+           #return render(request, 'listado_libros.html', {'listado_libros': listado_libros})
+            return redirect('listado_libros')
         
         else:
             return render(request, 'crear_libro.html', {'form': form})
@@ -44,7 +44,7 @@ def listado_libros(request):
     nombre_de_busqueda = request.GET.get('titulo')
     
     if nombre_de_busqueda:
-        listado_libros = Libro.objects.filter(nombre__icontains=nombre_de_busqueda)
+        listado_libros = Libro.objects.filter(titulo__icontains=nombre_de_busqueda)
     else:          
         listado_libros = Libro.objects.all()  
     
