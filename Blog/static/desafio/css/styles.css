@@ -1,0 +1,35 @@
+#menu{
+    margin: 0;
+    padding: 0;
+}
+header{
+    font-family: Helvetica;
+    width: 480px;
+    margin: 0 auto;
+}
+ul{
+    list-style: none;
+}
+#menu li>a{
+    background-color: rgb(80, 80, 80);
+    color: white;
+    padding: 10px;
+    display: block;
+    text-decoration: none;
+    min-width: 100px;
+}
+#menu li>a:hover{
+    color: #000;
+    background-color: #eaeaea;
+}
+#menu>li{
+    float: left;
+    text-align:center;
+}
+nav{
+    display: flex;
+}
+h1{
+    display: block;
+    text-align:center;
+}

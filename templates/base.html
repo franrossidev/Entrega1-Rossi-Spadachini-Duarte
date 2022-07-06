@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}
+    <title>Document</title>
+    {% endblock title %}
+    <link rel="stylesheet" href={% static 'desafio/css/styles.css' %}>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul id="menu">
+            <li><a href={% url 'index' %}>Inicio</a></li>
+            <li><a href={% url 'prueba' %}>Sobre nosotros</a></li>
+            <li><a href={% url 'listado_libros' %}>Crear Libro</a></li>
+            </ul>
+        </nav>
+    </header>
+    {% block h1 %}<h1>Hola este es el html base</h1>{% endblock h1 %}
+    {% block after_header %}{% endblock after_header %}
+</body>
+</html>

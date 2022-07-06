@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Listado de Libros</title>
+{% endblock title %}
+{% block h1 %}
+<h1>Listado de Libros</h1>
+{% endblock h1 %}
+
+{% block after_header %}
+<p>
+    <a href={% url 'crear_libro' %}>Crear Libro</a>
+</p>
+<p>
+    <form action={% url 'listado_libros' %}>
+        {{form}}
+        <button>Buscar</button>
+    </form>
+</p>
+<p>
+    {% if listado_libros %}
+    <ul>
+        {% for libro in listado_libros %}
+        <li>{{libro}}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    No se encontraron datos.
+    {% endif %}
+</p>
+{% endblock after_header %}
