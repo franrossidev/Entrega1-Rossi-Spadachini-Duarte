@@ -3,6 +3,7 @@ from .forms import BusquedaLibro
 from .models import Libro
 from datetime import datetime
 
+from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
 from django.views.generic.edit import DeleteView, UpdateView, CreateView
 from django.views.generic import DetailView
@@ -13,6 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 def inicio(request):
     return render(request, 'index.html')
 
+@login_required
 def sobre_nosotros(request):
     return render(request, 'sobre_nosotros.html')
 

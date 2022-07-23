@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Register</title>
+{% endblock title %}
+{% block h1 %}
+<h1>Register</h1>
+{% endblock h1 %}
+
+{% block after_header %}
+<p>
+    <a href={% url 'index' %}>Volver</a>
+</p>
+<p>
+    <form action={% url 'register' %} method="post">
+        {% csrf_token %}
+        <table>
+            {{form.as_table}}           
+        </table>
+        <button>Registrarse</button>
+    </form>
+</p>
+{% endblock after_header %}
