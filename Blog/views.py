@@ -1,7 +1,13 @@
 from django.shortcuts import redirect, render
-from .forms import BusquedaLibro, FormLibro
+from .forms import BusquedaLibro
 from .models import Libro
 from datetime import datetime
+
+from django.views.generic.list import ListView
+from django.views.generic.edit import DeleteView, UpdateView, CreateView
+from django.views.generic import DetailView
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 # Create your views here.
 
 def inicio(request):
@@ -10,43 +16,43 @@ def inicio(request):
 def sobre_nosotros(request):
     return render(request, 'sobre_nosotros.html')
 
-def crear_libro(request):
+class ListadoLibros(ListView):
+    model=Libro
+    template_name = 'listado_libros.html'
 
-    if request.method == 'POST':
-        form = FormLibro(request.POST)
-        
-        if form.is_valid():
-            data = form.cleaned_data
-
-            fecha = data.get('fecha_creacion')
-            
-            libro = Libro(
-                titulo=data.get('titulo'),
-                contenido=data.get('contenido'),
-                fecha_creacion=fecha if fecha else datetime.now()
-            )
-            libro.save()
-
-            #listado_libros = Libro.objects.all()
-            
-           #return render(request, 'listado_libros.html', {'listado_libros': listado_libros})
-            return redirect('listado_libros')
-        
+    def get_queryset(self):
+        titulo = self.request.GET.get('titulo', '')
+        if titulo: 
+            object_list = self.model.objects.filter(titulo__icontains=titulo)
         else:
-            return render(request, 'crear_libro.html', {'form': form})
-            
-    form_libro = FormLibro()
+            object_list = self.model.objects.all()
+        return object_list
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = BusquedaLibro()
+        return context
+    
+    
+class CrearLibro(CreateView):
+    model=Libro
+    template_name = 'crear_libro.html'
+    success_url = '/libros'
+    fields = ['titulo', 'contenido', 'fecha_creacion']
+    
+class EditarLibro(LoginRequiredMixin, UpdateView):
+    model=Libro
+    template_name = 'editar_libro.html'
+    success_url = '/libros'
+    fields = ['titulo', 'contenido', 'fecha_creacion']
 
-    return render(request, 'crear_libro.html', {'form': form_libro})
 
-def listado_libros(request):
-    
-    nombre_de_busqueda = request.GET.get('titulo')
-    
-    if nombre_de_busqueda:
-        listado_libros = Libro.objects.filter(titulo__icontains=nombre_de_busqueda)
-    else:          
-        listado_libros = Libro.objects.all()  
-    
-    form = BusquedaLibro()     
-    return render(request, 'listado_libros.html', {'listado_libros': listado_libros, 'form': form})
+class EliminarLibro(LoginRequiredMixin, DeleteView):
+    model=Libro
+    template_name = 'eliminar_libro.html'
+    success_url = '/libros'
+
+
+class MostrarLibro(DetailView):
+    model = Libro
+    template_name = 'mostrar_libro.html'

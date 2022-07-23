@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Eliminar Libro</title>
+{% endblock title %}
+
+{% block h1 %}
+<h1>
+    Eliminar Libro
+</h1>
+{% endblock h1 %}
+
+{% block after_header %}
+<p>
+    <a href={% url 'listado_libros' %}>Volver</a>
+</p>
+
+<p>
+    <form action={% url 'eliminar_libro' object.id %} method="post">
+        {% csrf_token %}
+        ¿Desea eliminar el libro?
+        <button>Confirmar</button>
+    </form>
+</p>
+
+{% endblock after_header %}

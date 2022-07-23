@@ -17,10 +17,15 @@
     </form>
 </p>
 <p>
-    {% if listado_libros %}
+    {% if object_list %}
     <ul>
-        {% for libro in listado_libros %}
-        <li>{{libro}}</li>
+        {% for libro in object_list %}
+        <li>
+        {{libro}}
+        <a href={% url 'mostrar_libro' libro.id %}>Mostrar</a>
+        <a href={% url 'editar_libro' libro.id %}>Editar</a>
+        <a href={% url 'eliminar_libro' libro.id %}>Eliminar</a>
+        </li>
         {% endfor %}
     </ul>
     {% else %}
