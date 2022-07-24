@@ -8,7 +8,7 @@
 
 {% block after_header %}
 <p>
-    <form action={% url 'editar_perfil' %} method="post">
+    <form action={% url 'editar_perfil' %} method="post" enctype='multipart/form-data'>
         {% csrf_token %}
         <table>
             {{form.as_table}}           

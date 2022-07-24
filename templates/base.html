@@ -18,7 +18,14 @@
             <li><a href={% url 'sobre_nosotros' %}>Sobre nosotros</a></li>
             <li><a href={% url 'listado_libros' %}>Crear Libro</a></li>
             {% if request.user.is_authenticated %}
-            <li><a href={% url 'perfil' %}>{{request.user.username}}</a></li>
+            <li>
+                <a href={% url 'perfil' %}>
+                    {% if request.user.masdatosusuario.avatar %}
+                    <img src={{request.user.masdatosusuario.avatar.url}} alt="" height="50px">
+                    {% endif %}
+                    {{request.user.username}}
+                </a>
+            </li>
             <li><a href={% url 'logout' %}>Logout</a></li>
             {% else %}
             <li><a href={% url 'login' %}>Login</a></li>
