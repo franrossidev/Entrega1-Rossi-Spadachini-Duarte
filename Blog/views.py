@@ -36,7 +36,7 @@ class ListadoLibros(ListView):
         return context
     
     
-class CrearLibro(CreateView):
+class CrearLibro(LoginRequiredMixin, CreateView):
     model=Libro
     template_name = 'crear_libro.html'
     success_url = '/libros'
