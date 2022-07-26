@@ -21,11 +21,19 @@
             {{libro.titulo}}
         </li>
         <li>
+            {{libro.subtitulo}}
+        </li>
+        <li>
             {{libro.contenido | safe}}
         </li>
         <li>
             {{libro.fecha_creacion}}
         </li>
+        <li>
+            {% if libro.imagen %}
+            <img src={{libro.imagen}} alt="" height="250px">
+            {% endif %}
+        </li>
     </ul>
 </p>
-{% endblock after_header %}
+{% endblock after_header %} 

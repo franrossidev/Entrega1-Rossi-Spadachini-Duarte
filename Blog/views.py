@@ -40,13 +40,13 @@ class CrearLibro(LoginRequiredMixin, CreateView):
     model=Libro
     template_name = 'crear_libro.html'
     success_url = '/libros'
-    fields = ['titulo', 'contenido', 'fecha_creacion']
+    fields = ['titulo', 'subtitulo', 'contenido', 'fecha_creacion', 'imagen'] 
     
 class EditarLibro(LoginRequiredMixin, UpdateView):
     model=Libro
     template_name = 'editar_libro.html'
     success_url = '/libros'
-    fields = ['titulo', 'contenido', 'fecha_creacion']
+    fields = ['titulo', 'subtitulo', 'contenido', 'fecha_creacion', 'imagen']
 
 
 class EliminarLibro(LoginRequiredMixin, DeleteView):
