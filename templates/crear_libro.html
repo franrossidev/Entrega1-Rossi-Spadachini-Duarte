@@ -11,7 +11,7 @@
     <a href={% url 'listado_libros' %}>Volver</a>
 </p>
 <p>
-    <form action={% url 'crear_libro' %} method="post">
+    <form action={% url 'crear_libro' %} method="post" enctype='multipart/form-data'>
         {% csrf_token %}
         <table>
             {{form.media}}

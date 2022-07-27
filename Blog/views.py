@@ -2,6 +2,7 @@ from django.shortcuts import redirect, render
 from .forms import BusquedaLibro
 from .models import Libro
 from datetime import datetime
+from django.contrib.auth.models import User
 
 from django.contrib.auth.decorators import login_required
 from django.views.generic.list import ListView
@@ -40,13 +41,17 @@ class CrearLibro(LoginRequiredMixin, CreateView):
     model=Libro
     template_name = 'crear_libro.html'
     success_url = '/libros'
-    fields = ['titulo', 'subtitulo', 'contenido', 'fecha_creacion', 'imagen'] 
+    fields = ['titulo', 'subtitulo', 'contenido', 'imagen'] 
+    def form_valid(self, form):
+        user = User.objects.get(username = self.request.user)
+        Libro.objects.create(titulo= self.request.POST['titulo'], subtitulo= self.request.POST['subtitulo'], contenido= self.request.POST['contenido'], imagen = self.request.POST['imagen'], autor = user)
+        return redirect(self.success_url)
     
 class EditarLibro(LoginRequiredMixin, UpdateView):
     model=Libro
     template_name = 'editar_libro.html'
     success_url = '/libros'
-    fields = ['titulo', 'subtitulo', 'contenido', 'fecha_creacion', 'imagen']
+    fields = ['titulo', 'subtitulo', 'contenido', 'imagen']
 
 
 class EliminarLibro(LoginRequiredMixin, DeleteView):

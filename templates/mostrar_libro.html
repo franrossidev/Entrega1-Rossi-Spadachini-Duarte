@@ -31,7 +31,14 @@
         </li>
         <li>
             {% if libro.imagen %}
-            <img src={{libro.imagen}} alt="" height="250px">
+            <img src={{libro.imagen.url}} alt="" height="250px">
+            {% endif %}
+        </li>
+        <li>
+            {% if libro.autor %}
+            Creado por {{libro.autor}}
+            {% else %}
+            Creado por un Anonimo
             {% endif %}
         </li>
     </ul>
