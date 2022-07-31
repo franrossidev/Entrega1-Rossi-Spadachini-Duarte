@@ -58,7 +58,7 @@ ROOT_URLCONF = 'EntregaIntermedia.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [r'C:\Users\gavio\OneDrive\Escritorio\Proyectos\EntregaInt\templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
