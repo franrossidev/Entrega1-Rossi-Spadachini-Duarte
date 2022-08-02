@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from .forms import BusquedaLibro
+from .forms import BusquedaLibro, LibroF
 from .models import Libro
 from datetime import datetime
 from django.contrib.auth.models import User
@@ -42,6 +42,7 @@ class CrearLibro(LoginRequiredMixin, CreateView):
     template_name = 'crear_libro.html'
     success_url = '/libros'
     fields = ['titulo', 'subtitulo', 'contenido', 'imagen'] 
+    form_class: LibroF
     def form_valid(self, form):
         user = User.objects.get(username = self.request.user)
         Libro.objects.create(titulo= self.request.POST['titulo'], subtitulo= self.request.POST['subtitulo'], contenido= self.request.POST['contenido'], imagen = self.request.FILES['imagen'], autor = user)
